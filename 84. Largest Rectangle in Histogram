@@ -1,0 +1,117 @@
+class Solution {
+    public int largestRectangleArea(int[] heigths) {
+        int[] lsei = new int[heigths.length];
+        int[] psei = new int[heigths.length];
+
+        Stack<Integer> stack = new Stack<>();
+
+        for(int i=0; i<heigths.length; i++){
+            lsei[i] = heigths.length;
+            psei[i] = 0;
+        }
+
+        for(int i=0; i<heigths.length; i++){
+            while(true){
+                if(stack.isEmpty()){
+                    stack.push(i);
+                    break;
+                }
+                int idx = stack.peek();
+                if(heigths[i] < heigths[idx]){
+                    lsei[idx] = i;
+                    stack.pop();
+                } else {
+                    stack.push(i);
+                    break;
+                }
+            }
+        }
+        while(!stack.isEmpty()){
+            lsei[stack.pop()] = heigths.length;
+        }
+
+        stack.clear();
+
+        for(int i=heigths.length-1; i>=0; i--){
+            while(true){
+                if(stack.isEmpty()){
+                    stack.push(i);
+                    break;
+                }
+                int idx = stack.peek();
+                if(heigths[i] <= heigths[idx]){
+                    psei[idx] = i;
+                    stack.pop();
+                } else {
+                    stack.push(i);
+                    break;
+                }
+            }
+        }
+        while(!stack.isEmpty()){
+            psei[stack.pop()] = -1;
+        }
+
+        int max = 0;
+        for(int i=0; i<heigths.length; i++){
+            max = Math.max(max, heigths[i] * (lsei[i] - psei[i] -1));
+        }
+        return max;
+    }
+}
+
+
+
+
+You are given an array heights, where each element represents the height of a bar in a histogram. Each bar has a width of 1.
+
+Your task is to find the largest rectangular area that can be formed using one or more consecutive bars in the histogram.
+
+Example 1
+
+Input:
+
+heights = [2,1,5,6,2,3]
+
+Output:
+
+10
+
+Explanation:
+
+The largest rectangle is formed using the bars with heights 5 and 6.
+Width = 2
+Height = 5 (the smaller of the two)
+Area = 5 × 2 = 10
+Example 2
+
+Input:
+
+heights = [2,4]
+
+Output:
+
+4
+Constraints
+1 <= heights.length <= 10^5
+0 <= heights[i] <= 10^4
+Idea
+
+For each bar:
+
+Find the Previous Smaller Element (PSE).
+Find the Next Smaller Element (NSE).
+The current bar can extend from the previous smaller bar to the next smaller bar.
+
+The width of the largest rectangle using the current bar is:
+
+width = NSE - PSE - 1
+
+The area is:
+
+area = heights[i] × width
+
+The optimal solution uses a monotonic increasing stack and runs in:
+
+Time Complexity: O(n)
+Space Complexity: O(n)
