@@ -1,0 +1,38 @@
+class Solution {
+    public boolean isIsomorphic(String s, String t) {
+
+        int map1[]=new int[200];
+        int map2[]=new int[200];
+
+        if(s.length()!=t.length())
+            return false;
+
+
+        for(int i=0;i<s.length();i++)
+        {
+            if(map1[s.charAt(i)]!=map2[t.charAt(i)])
+                return false;
+
+            map1[s.charAt(i)]=i+1;
+            map2[t.charAt(i)]=i+1;
+        }
+        return true;
+    }
+}
+
+
+Two strings are called isomorphic if the characters in the first string can be replaced to get the second string.
+
+Rules
+Every character in the first string must map to only one character in the second string.
+A character cannot map to two different characters.
+Two different characters cannot map to the same character.
+The order of characters must remain the same.
+Algorithm
+Create two HashMaps.
+Traverse both strings together.
+For every pair of characters:
+Check if the mapping already exists.
+If it exists and is different, return false.
+Otherwise, store the mapping.
+If all mappings are valid, return true.
