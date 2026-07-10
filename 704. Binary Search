@@ -1,0 +1,53 @@
+704. Binary Search
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int low=0;
+        int high=nums.size()-1;
+       
+        while(low<=high)
+        {
+            int mid=low+(high-low)/2;
+           
+        
+            if(nums[mid]==target)
+            {
+                return mid;
+            }
+          else if(nums[mid]<target)
+          {
+            low=mid+1;
+          }
+          else{
+            high=mid-1;
+          }
+        }
+        return -1;
+    }
+};
+
+
+The array is already sorted, so I use the Binary Search algorithm.
+I initialize two pointers:
+low = 0
+high = nums.size() - 1
+I continue searching while low <= high.
+
+In each iteration, I calculate the middle index:
+
+mid = low + (high - low) / 2;
+
+This avoids integer overflow.
+
+If nums[mid] == target, I return mid.
+
+If nums[mid] < target, I search the right half by setting:
+
+low = mid + 1;
+
+Otherwise, I search the left half by setting:
+
+high = mid - 1;
+If the loop finishes without finding the target, I return -1.
+Time Complexity: O(log n) because the search space is halved in every iteration.
+Space Complexity: O(1) because only a few variables are used.
