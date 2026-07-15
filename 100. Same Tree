@@ -1,0 +1,102 @@
+class Solution {
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+
+        int row = 0;
+        int col = matrix[0].length - 1;
+
+        while (row < matrix.length && col >= 0) {
+
+            if (matrix[row][col] == target) {
+                return true;
+            }
+            else if (matrix[row][col] > target) {
+                col--;
+            }
+            else {
+                row++;
+            }
+        }
+
+        return false;
+    }
+}
+
+
+Problem Description
+
+You are given an m × n integer matrix where:
+
+Each row is sorted in ascending order from left to right.
+Each column is sorted in ascending order from top to bottom.
+
+You are also given an integer target.
+
+Your task is to determine whether the target exists in the matrix.
+
+Return true if the target is found.
+Return false if the target is not found.
+Example 1
+Input
+matrix =
+[
+ [1, 4, 7, 11, 15],
+ [2, 5, 8, 12, 19],
+ [3, 6, 9, 16, 22],
+ [10,13,14,17,24],
+ [18,21,23,26,30]
+]
+
+target = 5
+Output
+true
+Explanation
+
+The number 5 is present in the matrix at:
+
+Row = 2
+Column = 2
+
+(Using 1-based indexing.)
+
+So the answer is true.
+
+Example 2
+Input
+matrix =
+[
+ [1, 4, 7, 11, 15],
+ [2, 5, 8, 12, 19],
+ [3, 6, 9, 16, 22],
+ [10,13,14,17,24],
+ [18,21,23,26,30]
+]
+
+target = 20
+Output
+false
+Explanation
+
+The number 20 does not exist anywhere in the matrix.
+
+So the answer is false.
+
+Constraints
+m == matrix.length
+n == matrix[i].length
+
+1 ≤ m, n ≤ 300
+-10^9 ≤ matrix[i][j] ≤ 10^9
+All rows are sorted in ascending order.
+All columns are sorted in ascending order.
+-10^9 ≤ target ≤ 10^9
+Approach
+Start searching from the top-right corner of the matrix.
+If the current element is equal to the target, return true.
+If the current element is greater than the target, move left.
+If the current element is smaller than the target, move down.
+Continue until the target is found or you move outside the matrix.
+Time Complexity
+O(m + n)
+Space Complexity
+O(1)
