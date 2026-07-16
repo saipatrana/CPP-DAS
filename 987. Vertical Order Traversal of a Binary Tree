@@ -1,0 +1,162 @@
+
+class Solution {
+    public class Info implements Comparable<Info> {
+        int val;
+        int row;
+        int col;
+
+        public Info(int val, int row, int col) {
+            this.val = val;
+            this.row = row;
+            this.col = col;
+        }
+
+        @Override
+        public int compareTo(Info other) {
+            if (this.col != other.col) {
+                return Integer.compare(this.col, other.col); 
+            }
+            if (this.row != other.row) {
+                return Integer.compare(this.row, other.row); 
+            }
+            if(this.val != other.val){
+                return Integer.compare(this.val, other.val); 
+            }
+            return 0;
+        }
+    }
+
+
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+
+
+        List<List<Integer>> arr = new ArrayList<>();
+        List<Info> list = new ArrayList<>();
+
+        information(root, list, 0, 0);
+
+        Collections.sort(list);
+
+        List<Integer> result = new ArrayList<>();
+
+        Info l = list.get(0);
+        int col = l.col;
+
+        for(int i = 0; i < list.size(); i++){
+            Info j = list.get(i);
+
+            if(col == j.col){
+                result.add(j.val);
+            }
+            else{
+                arr.add(new ArrayList<>(result));
+                result = new ArrayList<>();
+                result.add(j.val);
+                col = j.col;
+            }
+        }
+
+        arr.add(new ArrayList<>(result));
+        return arr;
+    }
+
+    public void information(TreeNode root,  List<Info> list, int row, int col){
+        if(root == null){
+            return;
+        }
+        list.add(new Info(root.val, row, col));
+        information(root.left, list, row+1, col-1);
+        information(root.right, list, row+1, col+1);
+        return;
+    }
+}
+
+
+Problem Description
+
+You are given three strings:
+
+s1
+s2
+s3
+
+Your task is to determine whether s3 is formed by interleaving the characters of s1 and s2.
+
+An interleaving means:
+
+All characters of s1 and s2 are used exactly once.
+The relative order of characters in s1 remains the same.
+The relative order of characters in s2 remains the same.
+Characters from s1 and s2 can be mixed together.
+
+Return:
+
+true if s3 is an interleaving of s1 and s2.
+false otherwise.
+Example 1
+Input
+s1 = "aabcc"
+s2 = "dbbca"
+s3 = "aadbbcbcac"
+Output
+true
+Explanation
+
+s3 is created by mixing characters from s1 and s2 while keeping the order of characters in each string.
+
+One possible interleaving is:
+
+s1 : a a b c c
+      | |   | |
+s2 :   d b b c a
+        | | | |
+-----------------
+s3 : a a d b b c b c a c
+
+The order of characters in both s1 and s2 is preserved.
+
+Example 2
+Input
+s1 = "aabcc"
+s2 = "dbbca"
+s3 = "aadbbbaccc"
+Output
+false
+Explanation
+
+It is impossible to form s3 while maintaining the order of characters in both s1 and s2.
+
+Example 3
+Input
+s1 = ""
+s2 = ""
+s3 = ""
+Output
+true
+Explanation
+
+All strings are empty, so s3 is a valid interleaving.
+
+Constraints
+0 <= s1.length, s2.length <= 100
+0 <= s3.length <= 200
+s1, s2, and s3 consist of lowercase English letters.
+Approach
+First, check if the length of s1 + s2 equals the length of s3.
+Starting from the first character of s3, try to match it with the current character of either s1 or s2.
+If it matches s1, move to the next character in s1.
+If it matches s2, move to the next character in s2.
+Continue until all characters of s3 are processed.
+Since there can be multiple valid choices, use Dynamic Programming (DP) or Recursion + Memoization to avoid repeated calculations.
+Time Complexity
+O(m × n)
+
+where:
+
+m = s1.length()
+n = s2.length()
+Space Complexity
+O(m × n)
