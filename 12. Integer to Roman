@@ -1,0 +1,106 @@
+class Solution {
+
+    public String intToRoman(int num) {
+
+        int[] values = {
+            1000, 900, 500, 400,
+            100, 90, 50, 40,
+            10, 9, 5, 4, 1
+        };
+
+        String[] roman = {
+            "M", "CM", "D", "CD",
+            "C", "XC", "L", "XL",
+            "X", "IX", "V", "IV", "I"
+        };
+
+        StringBuilder ans = new StringBuilder();
+
+        for (int i = 0; i < values.length; i++) {
+
+            while (num >= values[i]) {
+
+                ans.append(roman[i]);
+                num -= values[i];
+            }
+        }
+
+        return ans.toString();
+    }
+}
+
+
+
+Roman numerals are represented using the following symbols:
+
+Symbol	Value
+I	1
+V	5
+X	10
+L	50
+C	100
+D	500
+M	1000
+
+Given an integer num, convert it into its Roman numeral representation.
+
+Roman numerals follow these rules:
+
+Symbols are usually written from largest to smallest.
+Some numbers use subtractive notation:
+IV = 4
+IX = 9
+XL = 40
+XC = 90
+CD = 400
+CM = 900
+
+Return the Roman numeral as a string.
+
+Example 1
+Input
+num = 3
+Output
+"III"
+Explanation
+3 = I + I + I = III
+Example 2
+Input
+num = 58
+Output
+"LVIII"
+Explanation
+50 = L
+5  = V
+3  = III
+
+Roman = LVIII
+Example 3
+Input
+num = 1994
+Output
+"MCMXCIV"
+Explanation
+1000 = M
+900  = CM
+90   = XC
+4    = IV
+
+Roman = MCMXCIV
+Constraints
+1 <= num <= 3999
+Approach
+Store all Roman numeral values in descending order.
+Store the corresponding Roman symbols.
+Start from the largest value.
+While the number is greater than or equal to the current value:
+Append the corresponding Roman symbol.
+Subtract the value from the number.
+Continue until the number becomes 0.
+Time Complexity
+O(1)
+
+(The number of Roman symbols is fixed.)
+
+Space Complexity
+O(1)
