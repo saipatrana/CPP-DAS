@@ -1,0 +1,39 @@
+class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        int ans = 0;
+        long dist = Long.MAX_VALUE;
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            int j = i + 1;
+            int k = nums.length - 1;
+
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                long newDist = Math.abs(target - sum);
+
+                if(newDist < dist){
+                    dist = newDist;
+                    ans = sum;
+                }
+
+                if (sum < target) {
+                    j++;
+                }
+                 else if (sum > target) {
+                    k--;
+                }
+                 else {
+                    return sum;
+                }
+            }
+        }
+        return ans;
+    }
+}
