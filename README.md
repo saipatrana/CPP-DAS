@@ -17,5 +17,10 @@ A collection of LeetCode questions to ace the coding interview! - Created using 
 ## Array
 |  |
 | ------- |
+| [1052-grumpy-bookstore-owner](https://github.com/saipatrana/CPP-DAS/tree/master/1052-grumpy-bookstore-owner) |
 | [3693-climbing-stairs-ii](https://github.com/saipatrana/CPP-DAS/tree/master/3693-climbing-stairs-ii) |
+## Sliding Window
+|  |
+| ------- |
+| [1052-grumpy-bookstore-owner](https://github.com/saipatrana/CPP-DAS/tree/master/1052-grumpy-bookstore-owner) |
 <!---LeetCode Topics End-->
